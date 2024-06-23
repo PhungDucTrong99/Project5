@@ -2,7 +2,7 @@
 
 Udacity Front End Nanodegree - Travel App Project
 Project Summary
-This project integrates various skills to build a custom travel app. It focuses on JavaScript, clean HTML/CSS, DOM manipulation, working with objects, and fetching data from three APIs, with one API dependent on another. The project is developed in a Webpack environment, using an Express server, and includes service workers.
+This project integrates various skills to build a custom travel app. It focuses on JavaScript, clean HTML/CSS, DOM manipulation, working with objects, and fetching data from three APIs, with one API dependent on another. The project is developed in a Webpack environment, using an Express server.
 
 Extra Features
 Display trip length by adding an end date.
