@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorContainer = document.querySelector(".error");
 
   const createTripElement = (data, date, location) => {
+    // Output
     const itemsDiv = document.createElement("div");
     itemsDiv.className = "items";
 
@@ -14,32 +15,42 @@ document.addEventListener("DOMContentLoaded", () => {
     img.src = data.image;
     img.alt = "";
 
-    const h1 = document.createElement("h1");
+    const destination = document.createElement("h1");
+    //convert locationConvert
     const locationConvert = location.replaceAll("+", " ");
     console.log("location", locationConvert);
-    h1.textContent = `My trip to ${locationConvert}`;
+    destination.textContent = `My trip to ${locationConvert}`;
 
-    const h2 = document.createElement("h2");
-    h2.textContent = `Departing: ${date}`;
+    const dateTrips = document.createElement("h2");
+    dateTrips.textContent = `Departing: ${date}`;
 
-    const p1 = document.createElement("p");
-    p1.textContent = "Your trip is 2 days away";
+    const countDown = document.createElement("p");
+    countDown.textContent = "Your trip is 2 days away";
 
-    const p2 = document.createElement("p");
-    p2.textContent = `Weather is expected to be: ${data?.weather?.description}`;
+    const descriptionWeather = document.createElement("p");
+    descriptionWeather.textContent = `Weather is expected to be: ${data?.weather?.description}`;
 
-    const p3 = document.createElement("p");
-    p3.textContent = `Temperature is expected to be: ${data?.temp}°C`;
+    const currentWeather = document.createElement("p");
+    currentWeather.textContent = `Temperature is expected to be: ${data?.temp}°C`;
 
     const button = document.createElement("button");
     button.className = "delete";
     button.textContent = "Delete";
 
-    itemsDiv.append(img, h1, h2, p1, p2, p3, button);
+    itemsDiv.append(
+      img,
+      destination,
+      dateTrips,
+      countDown,
+      descriptionWeather,
+      currentWeather,
+      button
+    );
 
     return itemsDiv;
   };
 
+  // Delete event
   const handleDelete = (event) => {
     if (event.target.classList.contains("delete")) {
       event.target.parentNode.remove();
@@ -51,13 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
     errorContainer.textContent = "";
     submit.disabled = true;
 
+    // Form Input Variables
     const search = document.getElementById("name").value;
     const date = document.getElementById("date").value;
     const location = search.replaceAll(" ", "+");
 
+    // Convert time to milliseconds
     const currentTime = await convertDateToGetTime();
     const selectedTime = await convertDateToGetTime(date);
 
+    // Validation - Required Input Fields
     if (!search || !date) {
       alert("Can not be blank");
       console.log("is blank");
@@ -66,8 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Validation date if current time > selected time
     if (currentTime > selectedTime) {
       try {
+        // Fetch APIs
         const baseURL = "http://localhost:8080/";
         const data = await fetchData(`${baseURL}`, {
           location,
@@ -83,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submit.disabled = false;
       }
     } else {
+      // Error The current time is greater than the selected time.
       errorContainer.textContent = "Start Time Cannot Be Earlier Than Today";
       submit.disabled = false;
     }

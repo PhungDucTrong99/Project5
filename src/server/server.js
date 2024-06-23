@@ -1,18 +1,32 @@
+projectData = [];
+
 const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
-const bodyParser = require("body-parser");
-
 const app = express();
-let API_KEY_W = "0ba8e9ce3ee049969ff70a86afe9f49f"; // Weatherbit API Key
-let API_KEY_P = "44462151-85b0599cfaaf315d3676d2759"; // Pixabay API Key
 
+// Cors for cross origin allowance
+const cors = require("cors");
 app.use(cors());
-app.use(express.static("dist"));
+
+// Axios
+const axios = require("axios");
+/* Middleware*/
+//Here we are configuring express to use body-parser as middle-ware.
+const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* Global Variables */
+
+// Weatherbit API Key
+let API_KEY_W = "0ba8e9ce3ee049969ff70a86afe9f49f"; // Weatherbit API Key
+// Pixabay API Key
+let API_KEY_P = "44462151-85b0599cfaaf315d3676d2759";
+
+// Initialize the main project folder
+app.use(express.static("dist"));
+
 app.post("/", async (req, res) => {
+  // Input
   const { location, date } = req.body;
 
   try {
@@ -33,6 +47,7 @@ app.post("/", async (req, res) => {
   }
 });
 
+// Fetch APIs geonames
 const fetchGeonamesData = async (location) => {
   const baseURL = "http://api.geonames.org/searchJSON?q=";
   const url = `${baseURL}${location}&maxRows=1&username=buiduy057`;
@@ -43,6 +58,7 @@ const fetchGeonamesData = async (location) => {
   return response?.data;
 };
 
+// Fetch APIs weatherbit
 const fetchWeatherData = async (geonamesData, date) => {
   const { lat, lng } = geonamesData.geonames[0];
   const baseURL = "https://api.weatherbit.io/v2.0/current?lat=";
@@ -53,6 +69,7 @@ const fetchWeatherData = async (geonamesData, date) => {
   return response?.data;
 };
 
+// Fetch APIs pixabay
 const fetchPixabayData = async (search) => {
   const baseURL = "https://pixabay.com/api/?key=";
   const url = `${baseURL}${API_KEY_P}&q=${search}&image_type=photo`;
@@ -62,7 +79,15 @@ const fetchPixabayData = async (search) => {
   return response?.data;
 };
 
+// Setup Server
 const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Define your routes here
+app.get("/", (req, res) => {
+  res.status(200).send("Hello, World!");
+});
+
+module.exports = app; // Export the app instance
