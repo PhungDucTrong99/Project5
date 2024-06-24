@@ -25,7 +25,7 @@ makefile
 - PIXABAY_KEY=your Pixabay API key
 
 To get started developing right away:
-
+- Installation Guide Download the app zip file Unzip it from the desktop 
 - Install all project dependencies with `npm install`
 - Install jest project dependencies with `npm jest`
 - Update new code of project dependencies with `npm run build`

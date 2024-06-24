@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Only Travel App</title><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script><script defer="defer" src="bundle.js"></script></head><body><div id="container" class="container"><main><form action="" class="form" id="form"><h1>Only Travel App</h1><div class="form-group" style="margin-top: 15px;"><label for="location">Enter city:</label> <input name="name" id="location" class="form-control" placeholder="Enter Location"/></div><div class="form-group" style="margin-top: 15px;"><label for="travel-date">Enter date:</label> <input type="date" id="date" class="form-control" name="date"/></div><div class="error"></div><button class="btn" id="submit">Generate</button></form></main><div class="result" id="result"></div><footer class="footer">Create by PhungDucTrong</footer></div><script>if ('serviceWorker' in navigator) {
+      // Register service worker
+      navigator.serviceWorker.register('/serviceWorker.js')
+        .then(function (reg) {
+          console.log("SW registration succeeded. Scope is " + reg.scope);
+        }).catch(function (err) {
+          console.error("SW registration failed with error " + err);
+        });
+    }</script></body></html>
