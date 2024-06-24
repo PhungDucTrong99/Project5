@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     submit.disabled = true;
 
     // Form Input Variables
-    const search = document.getElementById("name").value;
+    const search = document.getElementById("location").value;
     const date = document.getElementById("date").value;
     const location = search.replaceAll(" ", "+");
 
